@@ -1,0 +1,11 @@
+---
+- name: "Configuring Nginx"
+  ansible.builtin.copy:
+    src: "/app/config/nginx.conf"
+    dest: "/etc/nginx/nginx.conf"
+    remote_src: true
+
+- name: "Configuring SystemD"
+  ansible.builtin.template:
+    src: "xpaste.service.j2"
+    dest: "/usr/lib/systemd/system/xpaste.service"

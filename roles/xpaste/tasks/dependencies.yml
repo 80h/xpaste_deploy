@@ -1,0 +1,18 @@
+---
+- name: "Installing SCL repo"
+  ansible.builtin.yum:
+    name: "centos-release-scl"
+    state: "present"
+
+- name: "Installing dependencies"
+  ansible.builtin.yum:
+    name:
+     - rh-ruby26-rubygem-bundler
+     - rh-ruby26-ruby-devel
+     - rh-ruby26-ruby
+     - libxml2-devel
+     - libxslt-devel
+     - libpqxx-devel
+     - nodejs
+     - gcc
+    state: "present"

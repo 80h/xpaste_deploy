@@ -1,0 +1,10 @@
+---
+- name: "Installing Git"
+  ansible.builtin.yum:
+    name: "git"
+    state: "present"
+
+- name: "Downloading Xpaste application from the git repository"
+  ansible.builtin.git:
+    repo: "https://{{ xpaste_git_credentials_username | urlencode }}:{{ xpaste_git_credentials_password | urlencode }}@{{ xpaste_git_https_repository }}"
+    dest: "{{ xpaste_app_directory }}"

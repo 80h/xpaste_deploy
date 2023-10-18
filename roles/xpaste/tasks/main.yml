@@ -1,0 +1,19 @@
+---
+# tasks file for xpaste
+- name: "Disable SELinux"
+  include_tasks: "selinux.yml"
+
+- name: "Installing dependencies of Xpaste application"
+  include_tasks: "dependencies.yml"
+
+- name: "Delivery of Xpaste application"
+  include_tasks: "delivery.yml"
+
+- name: "Installing of Xpaste application"
+  include_tasks: "install.yml"
+
+- name: "Configuring of Xpaste application"
+  include_tasks: "configure.yml"
+
+- name: "Running Xpaste application"
+  include_tasks: "running.yml"

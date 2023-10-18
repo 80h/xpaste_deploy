@@ -1,0 +1,14 @@
+---
+# defaults file for xpaste
+xpaste_app_directory: "/app"
+xpaste_git_credentials_username: ""
+xpaste_git_credentials_password: ""
+xpaste_git_https_repository: ""
+xpaste_secret_key_base: ""
+xpaste_rails_env: ""
+xpaste_rails_log_to_stdout: ""
+xpaste_db_host: ""
+xpaste_db_port: ""
+xpaste_db_name: ""
+xpaste_db_user: ""
+xpaste_db_password: ""

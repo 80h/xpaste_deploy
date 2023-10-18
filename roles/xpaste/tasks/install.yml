@@ -1,0 +1,17 @@
+---
+- name: "Installing bundle"
+  ansible.builtin.shell: |
+    source /opt/rh/rh-ruby26/enable
+    cd "{{ xpaste_app_directory }}"
+    bundle config build.nokogiri --use-system-libraries
+    bundle install --clean --no-cache --without development
+  args:
+    executable: "/bin/bash"
+  register: bundle
+  failed_when: (bundle.rc != 0) and (bundle.rc != 15)
+
+- name: "Copy executable file"
+  ansible.builtin.copy:
+    src: "xpaste.sh"
+    dest: "/usr/bin/xpaste"
+    mode: "0755"

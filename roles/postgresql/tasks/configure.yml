@@ -1,0 +1,33 @@
+---
+- name: "Creating a user for the database"
+  become: true
+  become_user: postgres
+  community.postgresql.postgresql_user:
+    user: "{{ postgresql_db_user }}"
+    password: "{{ postgresql_db_pass }}"
+    state: "present"
+
+- name: "Creating a database"
+  become: true
+  become_user: postgres
+  community.postgresql.postgresql_db:
+    name: "{{ postgresql_db_name }}"
+    owner: "{{ postgresql_db_user }}"
+    state: "present"
+
+- name: "Granting the user access to the database from the local host (ipv4) using md5 authentication"
+  become: true
+  become_user: postgres
+  community.postgresql.postgresql_pg_hba:
+    dest: "/var/lib/pgsql/data/pg_hba.conf"
+    contype: "host"
+    users: "{{ postgresql_db_user }}"
+    source: "127.0.0.1"
+    databases: "{{ postgresql_db_name }}"
+    method: "md5"
+    create: true
+
+- name: "Reloading service PostgreSQL"
+  ansible.builtin.service:
+    name: "postgresql"
+    state: "reloaded"

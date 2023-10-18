@@ -1,0 +1,21 @@
+[Unit]
+Description=Xpaste Application
+After=network-online.target remote-fs.target nss-lookup.target
+Before=nginx.service
+Wants=network-online.target
+
+[Service]
+Environment="SECRET_KEY_BASE={{ xpaste_secret_key_base }}"
+Environment="RAILS_ENV={{ xpaste_rails_env }}"
+Environment="RAILS_LOG_TO_STDOUT={{ xpaste_rails_log_to_stdout }}"
+Environment="DB_HOST={{ xpaste_db_host }}"
+Environment="DB_PORT={{ xpaste_db_port }}"
+Environment="DB_NAME={{ xpaste_db_name }}"
+Environment="DB_USER={{ xpaste_db_user }}"
+Environment="DB_PASSWORD={{ xpaste_db_password }}"
+Type=simple
+WorkingDirectory={{ xpaste_app_directory }}
+ExecStart=/usr/bin/scl enable rh-ruby26 -- /usr/bin/xpaste
+
+[Install]
+WantedBy=multi-user.target

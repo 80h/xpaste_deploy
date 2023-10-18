@@ -1,0 +1,11 @@
+---
+- name: "Disable SELinux permanently"
+  ansible.posix.selinux:
+    state: "disabled"
+  register: disabled_selinux
+
+- name: "Modify the mode SELinux in permissive"
+  ansible.builtin.command: "setenforce 0"
+  when: disabled_selinux is changed
+
+

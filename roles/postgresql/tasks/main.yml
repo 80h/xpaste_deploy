@@ -1,0 +1,7 @@
+---
+# tasks file for postgresql
+- name: "Installing PostgreSQL"
+  include_tasks: "install.yml"
+
+- name: "Configuring database"
+  include_tasks: "configure.yml"

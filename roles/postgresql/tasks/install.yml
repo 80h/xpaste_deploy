@@ -1,0 +1,29 @@
+---
+- name: "Installing EPEL repo"
+  ansible.builtin.yum:
+    name: "epel-release"
+    state: "present"
+
+- name: "Installing PostgreSQL server"
+  ansible.builtin.yum:
+    name: "postgresql-server"
+    state: "present"
+  register: postgresql_server
+
+- name: "Initializing a PostgreSQL cluster"
+  ansible.builtin.shell: "postgresql-setup initdb"
+  when: postgresql_server is changed
+
+- name: "Starting and enabling PostgreSQL"
+  ansible.builtin.service:
+    name: "postgresql"
+    state: "started"
+    enabled: "yes"
+  when: postgresql_server is changed
+
+- name: "Installing a dependency list for community.postgresql.*"
+  ansible.builtin.yum:
+    name:
+     - python-psycopg2
+     - python-ipaddress
+    state: "present"
